@@ -108,8 +108,7 @@ county_pay = current.groupby(['ST_FIPS','CT_FIPS'], as_index=False).agg({'READM'
 county_rates = pd.merge(county_rates, county_pay, how='left', on=['ST_FIPS', 'CT_FIPS'])
 county_rates = county_rates.fillna(0)
 county_rates = county_rates['READM'].tolist()
-county_rates = [int(i) for i in county_rates]
-                
+county_rates = [int(i) for i in county_rates]                
 hosp_lat = current['Lat'].tolist()
 hosp_long = current['Long'].tolist()
     
