@@ -12,9 +12,9 @@
   </head>
   <body>
     <div class="content">
-      <h1>Medicare: Hospital Payments vs Readmission and Mortality</h1>
+      <h1>Medicare:An Analysis of Hospital Payments</h1>
 
-      <p>Medicare, the only federal insurance agency, is a vast and diverse network, 
+      <p class="indent">Medicare, the only federal insurance agency, is a vast and diverse network, 
       that provides regulation, guidance, and authority over all other private insurance 
       agencies. Though most insurances are not mandated to follow Medicare guidelines, many
       agencies adopt the standards set by CMS, of the Center for Medicare and Medicaid, 
@@ -24,8 +24,9 @@
       making analysis of the healthcare industry a very dubious endeavor. However, as a 
       federally run program, Medicare is required to offer its data, in order to maintain 
       transparency. This allows us to get a glimpse inside the world of insurance billing 
-      and regulation. 
-      	For demonstration, we compared 6 states, along with 4 DRG or Diagnostic Related groups 
+      and regulation.<br> </p>
+
+      <p class="indent">For demonstration, we compared 6 states, along with 4 DRG or Diagnostic Related groups 
       and compared two medicare Indicators: Readmissions and Mortality to see if there was any 
       relationship between payment and these two groups. The DRGs for this project were: 
       HF- Heart Failure, COPD -Chronic Obstructive Pulmonary disorder, AMI- Acute Myocardial 
@@ -38,10 +39,22 @@
       </p>
 
       {{ plot_div|indent(8) }}
-
-      <p>Our above visualizations show the Medicare d shows the .</p>
+      {{ plot_script|indent(8) }}
+    </div>
+      <br>
+      <br>
+      <br>
+      <br>
+      <div class="content">
+      <p>References<br>
+      [4] Renner, R."HUD USPS ZIP Code Crosswalk Files" Office of Policy Development and Research.<br>
+      https://www.huduser.gov/portal/datasets/usps_crosswalk.html#codebook<br>
+      [5]"Hospital Compare Datasets". Centers for Medicare & Medicaid Services. Updated 10/19/2016 <br>
+      https://data.medicare.gov/data/hospital-compare<br>
+      [6] "Inpatient Prospective Payment System (IPPS) Provider Summary for All Diagnosis-Related Groups (DRG) - FY2014" Centers for Medicare & Medicaid Services Updated Updated: 6/23/2016<br> 
+      https://data.cms.gov/Public-Use-Files/Inpatient-Prospective-Payment-System-IPPS-Provider/9zmi-76w9
 
     </div>
-    {{ plot_script|indent(8) }}
+
   </body>
 </html>

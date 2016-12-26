@@ -20,8 +20,12 @@ h1 {
     text-transform: uppercase;
 }
 p {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 1.2em;
-    text-align: justify;
-    text-justify: inter-word;
+    font-family: 'Noto Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    color: #fff;
+    background: #2F2F2F
+}
+p.indent{ 
+padding-left: 1.8em 
 }

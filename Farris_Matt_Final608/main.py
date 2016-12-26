@@ -9,7 +9,6 @@ bokeh serve --show main.py
 
 import pandas as pd
 import numpy as np
-import math
 
 from bokeh.io import show
 from bokeh.layouts import row, widgetbox
@@ -26,13 +25,12 @@ from bokeh.models.widgets import (DataTable,
     Panel, 
     NumberFormatter)
 
-from bokeh.palettes import OrRd9 as palette
+from bokeh.palettes import RdGn9 as palette
 from bokeh.plotting import curdoc, figure
 from bokeh.sampledata.us_counties import data as tot_counties
-from bokeh.sampledata.unemployment import data as unemployment
 
 #Setup
-palette.reverse()
+
 TOOLS = "pan,wheel_zoom,box_zoom,reset,hover,save"
 
 #Data Initialization
@@ -54,16 +52,11 @@ tot_data['ST_FIPS'] = tot_data['ST_FIPS'].astype(int)
 tot_data['CT_FIPS'] = tot_data['CT_FIPS'].astype(int)
 tot_data['County'] = list(zip(tot_data['ST_FIPS'],tot_data['CT_FIPS']))
 
-max_readm = tot_data['READM'].max(axis=0)
-min_readm = tot_data['READM'].min(axis=0)
 max_mort = tot_data['MORT'].max(axis=0)
 min_mort = tot_data['MORT'].min(axis=0)
 
+color_mapper = LinearColorMapper(palette=palette, high=max_mort, low=min_mort)
 
-mort_color_mapper = LinearColorMapper(palette=palette, high=max_mort, low=min_mort)
-readm_color_mapper = LinearColorMapper(palette=palette, high=max_readm, low=min_readm)
-
-color_mapper ={"READM":readm_color_mapper,"MORT":mort_color_mapper}
 
 copd_drg = [190,191,192]
 pn_drg = [193,194,195]
@@ -81,7 +74,6 @@ drgs = {
 state_opt = ['TX','OH','NC','NJ','WA','VA']
 drg_opt = ['AMI','COPD', 'HF','PN']
 ind_opt = ['READM', 'MORT']
-
 
 current = tot_data.groupby('Provider.State').get_group("TX")
 current = current.groupby('Comb.DRG').get_group("HF")
@@ -148,9 +140,10 @@ def update():
 
     source_table.data = {
         'Hospital': hosp_name,
-        'Provider ID':hosp_id
+        'Provider ID':hosp_id,
         'Payment':payment,
-        'Rate':mort}
+        'READM':readm,
+        'MORT':mort}
     
     counties = {code: county for code, county in tot_counties.items() if county["state"] == state_dict[state.value] }
 
@@ -216,7 +209,7 @@ p1 = figure(
 p1.grid.grid_line_color = None
     
 p1.patches('x', 'y', source=source_county,
-    fill_color={'field': 'rate', 'transform': color_mapper[ind.value]},
+    fill_color={'field': 'rate', 'transform': color_mapper},
     fill_alpha=0.7, line_color="white", line_width=0.5)
     
     
@@ -224,15 +217,16 @@ p1.circle('x','y', size='radii',
           source=source_hosp,
           fill_alpha=0.6,
           line_color=None)
+
 #Graph 
 
 p2 = figure(
     tools=TOOLS,
     title = "Hospital Payments Vs. Indicator",
-    x_axis_label = "Indicator",
+    x_axis_label = "Readmission",
     y_axis_label = "Hosptial Payment")
 
-p2.circle('Payment','Rate', size=5,
+p2.circle('Payment','READM', size=5,
           source=source_table,
           fill_alpha=0.6)
 
