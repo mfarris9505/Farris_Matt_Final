@@ -71,7 +71,7 @@ drgs = {
          }          
 #Change state options because it didnt work for some states (NAN???)
 #state_opt = states['ABB'].tolist()
-state_opt = ['TX','OH','NC','NJ','WA','VA']
+state_opt = ['TX','OH','NC','NJ','WA']
 drg_opt = ['AMI','COPD', 'HF','PN']
 ind_opt = ['READM', 'MORT']
 
