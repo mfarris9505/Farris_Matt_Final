@@ -20,7 +20,7 @@ from bokeh.io import show
 from bokeh.plotting import figure
 
 TOOLS="pan,wheel_zoom,box_zoom,reset,previewsave"
-p = figure(title="Map of India", tools=TOOLS, plot_width=900, plot_height=800)
+p = figure(title="Map", tools=TOOLS, plot_width=900, plot_height=800)
 
 
 

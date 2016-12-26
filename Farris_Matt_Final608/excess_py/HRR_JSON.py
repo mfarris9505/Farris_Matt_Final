@@ -4,8 +4,6 @@ Created on Thu Dec 22 23:53:10 2016
 
 @author: Matthew
 """
-
-
 import urllib2
 import json
 

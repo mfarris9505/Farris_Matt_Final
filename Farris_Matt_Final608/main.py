@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 """
-Created on Fri Dec 23 17:49:33 2016
-
 bokeh serve --show main.py
 
 @author: Matthew
@@ -75,6 +73,8 @@ state_opt = ['TX','OH','NC','NJ','WA']
 drg_opt = ['AMI','COPD', 'HF','PN']
 ind_opt = ['READM', 'MORT']
 
+#Data Condensing:::This is very repeative code... Should be one processing file
+#An attempt was made to do so, but ran into some problems 
 current = tot_data.groupby('Provider.State').get_group("TX")
 current = current.groupby('Comb.DRG').get_group("HF")
 group = ['Provider.Name','Provider.Id','ZIP','Lat','Long','ST_FIPS','CT_FIPS','Comb.DRG']
@@ -86,10 +86,10 @@ mort = current['MORT'].tolist()
 readm = current['READM'].tolist()
 
 source_table = ColumnDataSource(dict(
-                                Hospital = hosp_name,
-                                Payment=payment,
-                                MORT=mort,
-                                READM=readm))
+    Hospital = hosp_name,
+    Payment=payment,
+    MORT=mort,
+    READM=readm))
     
 counties = {code: county for code, county in tot_counties.items() if county["state"] == "tx"}
 
@@ -100,7 +100,7 @@ county_ys = [[x for x in item if x is not None] for item in county_ys]
 
 county_names = [county['name'] for county in counties.values()]
 
-#Finding Average Payment data in                 
+#Finding Average Payment data                 
 county_rates = [county_id for county_id in counties]
 county_rates = pd.DataFrame(county_rates)
 county_rates.columns = ['ST_FIPS','CT_FIPS']
@@ -176,8 +176,7 @@ def update():
                          'name':county_names,
                          'rate':county_rates}
 
-
-    
+#Column for Table
 columns = [
     TableColumn(field="Hospital", title="Provider"),
     TableColumn(field="Payment", 
@@ -190,6 +189,7 @@ columns = [
 
 data_table = DataTable(source=source_table, columns=columns, width=800)
 
+#Select fields
 state = Select(title='State', value='TX', options=state_opt)
 state.on_change('value', lambda attr, old, new: update())
 
@@ -219,7 +219,6 @@ p1.circle('x','y', size='radii',
           line_color=None)
 
 #Graph 
-
 p2 = figure(
     tools=TOOLS,
     title = "Hospital Payments Vs. Indicator",
@@ -243,6 +242,5 @@ controls = widgetbox([state,drg,ind], width=200)
 
 
 #Layout 
-
 curdoc().add_root(row(controls, tabs))
 curdoc().title = "Medicare"

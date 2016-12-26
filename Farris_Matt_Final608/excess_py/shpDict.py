@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu Dec 22 22:30:10 2016
-
 @author: Matthew
 """
 # Boorrowed Code from : http://www.abisen.com/blog/bokeh-maps/
