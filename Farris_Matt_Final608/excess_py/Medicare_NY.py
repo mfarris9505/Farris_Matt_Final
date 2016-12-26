@@ -1,20 +1,22 @@
 # -*- coding: utf-8 -*-
 """
 Use the ``bokeh serve`` command to run the example by executing:
-    bokeh serve --show main.py
+    bokeh serve --show Medicare_NY.py
 
 @author: Matts42
 """
 import pandas as pd
-import numpy as np
 import math
 
 from bokeh.io import show
 from bokeh.layouts import row
 
 from bokeh.models import (
+    Select,
     ColumnDataSource,
-    LogColorMapper)
+    HoverTool,
+    LogColorMapper,
+    Widgets)
 
 from bokeh.palettes import Viridis6 as palette
 from bokeh.plotting import curdoc, figure
@@ -41,8 +43,6 @@ color_mapper = LogColorMapper(palette=palette)
 # data prep 
 ny_data = pd.read_csv("NYData.csv", sep = ",",float_precision = "high")
 ny_data = ny_data.dropna(axis = 0) # FOR DISCUSSION AS TO WHY I REMOVED NA
-ny_data = ny_data.replace('Not Available', np.nan)
-ny_data = ny_data.apply(lambda x: pd.to_numeric(x, errors='ignore'))
 
 
 #GROUPING FOR DISCUSSION
@@ -52,7 +52,7 @@ g_comb = ny_data.groupby('Comb.DRG').get_group("HF")
 hosp_lat = g_comb['Lat'].tolist()
 hosp_long = g_comb['Long'].tolist()
 hosp_name = g_comb['Provider.Name'].tolist()
-hosp_mort = g_comb['MORT'].tolist()
+hosp_mort = g_comb['READMN'].tolist()
 hosp_mort= [math.log1p(x)/10 for x in hosp_mort]
 
 source = ColumnDataSource(data=dict(
@@ -83,9 +83,7 @@ p.scatter('x','y', radius = 'radii',
           source=source_hosp,
           fill_alpha=0.6,
           line_color=None)
-     
-
-"""     
+          
 hover = p.select_one(HoverTool)    
 hover.point_policy = "follow_mouse"
 hover.tooltips = [
@@ -94,17 +92,15 @@ hover.tooltips = [
     ("(Long, Lat)", "($x, $y)")]
  
 #Inputs 
-"""
+
 #USING show to see the results  
 show(p)
 
 #Below Code to run the Server
 """ 
-tabs = Tabs(tabs=[tab1, tab2])
-
 #Layout 
 layout = row(p)
 
-curdoc().add_root(row(controls, tabs))
-curdoc().title = "Medicare"
+curdoc().add_root(layout)
+curdoc().title = "MedicareNY"
 """
