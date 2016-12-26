@@ -25,7 +25,7 @@ from bokeh.models.widgets import (DataTable,
     Panel, 
     NumberFormatter)
 
-from bokeh.palettes import RdGn9 as palette
+from bokeh.palettes import RdBu9 as palette
 from bokeh.plotting import curdoc, figure
 from bokeh.sampledata.us_counties import data as tot_counties
 
