@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Medicare Hospital Payment Data</title>
+    {{ bokeh_css }}
+    {{ bokeh_js }}
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Noto+Sans);
+      {% include 'styles.css' %}
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <h1>Medicare: Hospital Payments vs Readmission and Mortality</h1>
+
+      <p>Medicare, the only federal insurance agency, is a vast and diverse network, 
+      that provides regulation, guidance, and authority over all other private insurance 
+      agencies. Though most insurances are not mandated to follow Medicare guidelines, many
+      agencies adopt the standards set by CMS, of the Center for Medicare and Medicaid, 
+      the government agency the oversees all of the Medicare regulations. Because Medicare is 
+      so vast, it incorporates one of the largest datasets in the US. Most insurance agencies, 
+      because of their proprietary nature, do not release their data to the general public, 
+      making analysis of the healthcare industry a very dubious endeavor. However, as a 
+      federally run program, Medicare is required to offer its data, in order to maintain 
+      transparency. This allows us to get a glimpse inside the world of insurance billing 
+      and regulation. 
+      	For demonstration, we compared 6 states, along with 4 DRG or Diagnostic Related groups 
+      and compared two medicare Indicators: Readmissions and Mortality to see if there was any 
+      relationship between payment and these two groups. The DRGs for this project were: 
+      HF- Heart Failure, COPD -Chronic Obstructive Pulmonary disorder, AMI- Acute Myocardial 
+      Infarction, and PN -Pneumonia. The 6 states choosen were Texas, Ohio, North Carolina, 
+      Washington, and Virginia. The Graph compares payment date to the respective indicator of 
+      choice, while the map shows the counties' readmission or mortality rate (based on the 
+      hospitals data), along with the hospital payment data. The Size of the circle represents 
+      how much the relative amount that that hospital is paid compared to all the other hospitals.
+   
+      </p>
+
+      {{ plot_div|indent(8) }}
+
+      <p>Our above visualizations show the Medicare d shows the .</p>
+
+    </div>
+    {{ plot_script|indent(8) }}
+  </body>
+</html>

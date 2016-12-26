@@ -1,0 +1,15 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Dec 22 21:42:42 2016
+
+@author: Matthew
+"""
+
+import urllib2
+import json
+
+
+url = "https://raw.githubusercontent.com/jgoodall/us-maps/master/geojson/hrr.json"
+data = urllib2.urlopen(url).read()
+data = json.load(data)
+
